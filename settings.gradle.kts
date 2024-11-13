@@ -10,4 +10,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "FitimStend2"
+rootProject.name = "ForArticleCompose"
