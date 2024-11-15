@@ -1,0 +1,12 @@
+Материнская плата HP System Board для Proliant ML150 G5
+	Использовалась для серверных решений фирмы HP.
+
+	Технические характеристики:
+	Чипсет: Intel® 5100
+	CPU:Xeon E5410, E5205, E5405, E5420, E5430, E5440
+	Кол-во процессоров: 2
+	Слоты для памяти:  6
+	Тип памяти: PC2-5300 с буферизацией DIMM Registered (DDR2-667)
+	Максимальная память: 16 Гб
+	Сетевой адаптер: Embedded HP NC105i PCI Express Gigabit Server Adapter 10/100/1000 WOL
+	Контроллер RAID: HP E200 8 Internal Port Smart Array SAS/SATA Controller

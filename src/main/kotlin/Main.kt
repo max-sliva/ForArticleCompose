@@ -1,13 +1,12 @@
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
@@ -18,8 +17,10 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.*
+import org.jetbrains.skia.Bitmap
 import java.io.*
 import java.util.*
+
 
 @Composable
 fun App(state: MutableState<WindowState>, curPath: String) {
@@ -67,7 +68,7 @@ fun App(state: MutableState<WindowState>, curPath: String) {
         }
 }
 
-fun loadStendModel(bordersList: SnapshotStateList<BorderStroke>, itemsAddedToStend: SnapshotStateList<String>,): MutableList<StendBoxModel> {
+fun loadStendModel(bordersList: SnapshotStateList<BorderStroke>, itemsAddedToStend: SnapshotStateList<String>): MutableList<StendBoxModel> {
     val myFile = File("itemsInStend.dat")
     val fin = FileInputStream(myFile)
     val oin = ObjectInputStream(fin)
@@ -99,15 +100,15 @@ private fun UpperBar(nvsuLogoWhite: String, facultyLogoWhite: String) {
         val facultyFile = File(facultyLogoWhite)
         val facultyBitmap: ImageBitmap = remember(facultyFile) { loadImageBitmap(facultyFile.inputStream())   }
         Image(
-            painter = BitmapPainter(image = nvsuBitmap),
+            painter = BitmapPainter(image = nvsuBitmap, filterQuality = FilterQuality.High),
             contentDescription = "", //можно вставить описание изображения
             contentScale = ContentScale.Fit, //параметры масштабирования изображения
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier.padding(8.dp),
         )
         var text = File("captionText.txt").readText()
         Text(text, color = Color.White, fontSize = 40.sp, fontWeight = FontWeight.Bold)
         Image(
-            painter = BitmapPainter(image = facultyBitmap), //указываем источник изображения
+            painter = BitmapPainter(image = facultyBitmap, filterQuality = FilterQuality.None), //указываем источник изображения
             contentDescription = "", //можно вставить описание изображения
             contentScale = ContentScale.Fit, //параметры масштабирования изображения
             modifier = Modifier.padding(8.dp)
@@ -236,8 +237,8 @@ fun main() = application {
         loadingWindowIsVisible.value = false
         Window(
             onCloseRequest = ::exitApplication,
-            undecorated = windowMode.contains("0"), //если в файле mode.txt первое число 0, то без оконных кнопок, иначе они будут, для отладки
-            resizable = false,
+//            undecorated = windowMode.contains("0"), //если в файле mode.txt первое число 0, то без оконных кнопок, иначе они будут, для отладки
+//            resizable = false,
             state = stateMuseumWindow.value
         ) {   App(stateMuseumWindow, curPath)  }
     }
