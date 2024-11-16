@@ -9,7 +9,6 @@ import java.util.*
 import javax.swing.*
 
 class SimpleEx(title: String) : JFrame() {
-
     private val curPath = System.getProperty("user.dir")
     private val folderNamePath = "$curPath/folderName.properties"
     private val backgroundImage = "items/background.jpg"
@@ -19,7 +18,6 @@ class SimpleEx(title: String) : JFrame() {
     private val imageHolder = JLabel()
     var itemsBtnsMap = HashMap<String, String>() //мап для хранения связи item - Arduino button
     var btnsItemsMap = HashMap<String, String>() //мап для хранения связи Arduino button - item
-    private var serialPort: SerialPort? = null
     private val imageLabel = JLabel()
     var imageWindow = JDialog()
     init {
@@ -27,23 +25,15 @@ class SimpleEx(title: String) : JFrame() {
         val fin = FileInputStream(myFile)
         val oin = ObjectInputStream(fin)
         itemsBtnsMap = oin.readObject() as HashMap<String, String>
-        println("hash from file = $itemsBtnsMap")
         itemsBtnsMap.forEach { (item, btn) ->
             btnsItemsMap[btn] = item
         }
-        println("btnsItemsMap = $btnsItemsMap")
-
         oin.close()
         fin.close()
         createUI(title)
-        println("filesSet = $filesSet")
         val appConfigPath = "$curPath/app.properties"
         val appProps = Properties()
         appProps.load(FileInputStream(appConfigPath))
-        println("props = ${appProps.entries}")
-        val portName = appProps.getProperty("Port name") //todo проверить, чтобы в линуксе имя с пробелом читалось
-        println("portName = $portName")
-        serialPort = SerialPort(portName)
         imageWindow!!.add(imageLabel, BorderLayout.CENTER)
         val graphics = GraphicsEnvironment.getLocalGraphicsEnvironment()
         val device = graphics.defaultScreenDevice
@@ -112,10 +102,6 @@ class SimpleEx(title: String) : JFrame() {
         itemsComboBox.setRenderer(MyComboBoxRenderer("Выберите экспонат: ▼"));
         comboBoxModel.addAll(itemsList)
         itemsComboBox.addActionListener { e ->
-            println("selected = ${e.actionCommand}")
-            val curItem = itemsComboBox.selectedItem
-            println("selected = $curItem")
-            println("number to Arduino = ${itemsBtnsMap[curItem]}")
             val tempList = itemsMap[itemsComboBox.selectedItem]?.toList()
             showItem(tempList)
         }
@@ -147,7 +133,6 @@ class SimpleEx(title: String) : JFrame() {
         filesSet = listOf()
         filesSet = filesSet.plus(tempList!!.first())
         filesSet = filesSet.plus(tempList.last())
-        println("filesSet = $filesSet")
         val text = File(filesSet.first()).readText()
         textArea.text = text
         var itemImage = ImageIcon(filesSet.last())
@@ -164,9 +149,7 @@ class SimpleEx(title: String) : JFrame() {
     }
 
     private fun makeImageWindow(itemImage: ImageIcon) { //создает JDialog с большой картинкой экспоната
-        println("image = $itemImage")
         imageWindow.isVisible = true
-        println("imageWindow visible is ${imageWindow.isVisible}")
         var newimg = getScaledImage(itemImage, imageWindow!!.width, imageWindow!!.height)
         imageWindow!!.remove(imageLabel)
         imageLabel.icon = ImageIcon(newimg)
@@ -223,7 +206,6 @@ class SimpleEx(title: String) : JFrame() {
     private fun fontSizeChange(e: ActionEvent) {
         var font = textArea.font
         var fontSize = font.size2D
-        println("fontSize = $fontSize")
         if (e.actionCommand == "+") fontSize++ else fontSize--
         font = font.deriveFont(fontSize)
         textArea.font = font
