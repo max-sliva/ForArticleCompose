@@ -66,7 +66,8 @@ private fun UpperBar(nvsuLogoWhite: String, facultyLogoWhite: String) {
         modifier = Modifier
             .fillMaxWidth()
             .height(100.dp)
-            .background(Color.DarkGray)
+//            .background(Color.DarkGray)
+            .background(Color(0xFF1E63B2))
     ) {
         val nvsuFile = File(nvsuLogoWhite)
         val nvsuBitmap: ImageBitmap = remember(nvsuFile) { loadImageBitmap(nvsuFile.inputStream())    }
@@ -265,6 +266,6 @@ private fun FontSizeButton(s: String, onClick: () -> Unit) {
                 .heightIn(max = 30.dp),
             contentPadding = PaddingValues(all = 0.dp),
             onClick = onClick,
-            colors = ButtonDefaults.buttonColors(Color.DarkGray)
+            colors = ButtonDefaults.buttonColors(Color(0xFF1E63B2))
     ) {  Text( s, color = Color.White, fontSize = 25.sp)   }
 }

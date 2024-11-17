@@ -1,5 +1,4 @@
 import com.formdev.flatlaf.FlatLightLaf
-import jssc.SerialPort
 import java.awt.*
 import java.awt.event.ActionEvent
 import java.awt.event.MouseAdapter
