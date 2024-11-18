@@ -43,7 +43,7 @@ class SimpleEx(title: String) : JFrame() {
         defaultCloseOperation = EXIT_ON_CLOSE
         setUpperBar()
         setCentralPart()
-        setSize(400, 300)
+        setSize(800, 400)
         setLocationRelativeTo(null)
     }
 
@@ -134,7 +134,7 @@ class SimpleEx(title: String) : JFrame() {
         textArea.text = text
         var itemImage = ImageIcon(filesSet.last())
         val newWidth = 500
-        val newimg = getScaledImage(itemImage, newWidth, 800)
+        val newimg = getScaledImage(itemImage, newWidth, 400)
 
         imageHolder.icon = ImageIcon(newimg)
         imageHolder.preferredSize = Dimension(newWidth, imageHolder.minimumSize.height)
@@ -226,10 +226,10 @@ class SimpleEx(title: String) : JFrame() {
         pane.add(JScrollPane(textArea), c)
         c.fill = GridBagConstraints.BOTH
         c.gridx = 1
-        c.weightx = 0.5
+        c.weightx = 0.3
         c.gridy = 0
         var itemImage = ImageIcon(filesSet.last())
-        var newimg = getScaledImage(itemImage, 500, 800)
+        var newimg = getScaledImage(itemImage, 300, 400)
         imageHolder.icon = ImageIcon(newimg)
         imageHolder.border = BorderFactory.createLineBorder(Color.RED, 2)
         imageHolder.horizontalAlignment = JLabel.CENTER
@@ -271,7 +271,6 @@ private fun createAndShowGUI() {
         val settingsWindow = SettingsWork()
         settingsWindow.isVisible = true
     }
-
     pane.add(showSettingsBtn, c)
     firstFrame.add(pane, BorderLayout.CENTER)
     firstFrame.isVisible = true
@@ -280,10 +279,6 @@ private fun createAndShowGUI() {
 fun main() {
     FlatLightLaf.setup()
     UIManager.setLookAndFeel(FlatLightLaf())
-    val looks = UIManager.getInstalledLookAndFeels()
-    for (look in looks) {
-        println(look.className)
-    }
     EventQueue.invokeLater(::createAndShowGUI)
 }
 
