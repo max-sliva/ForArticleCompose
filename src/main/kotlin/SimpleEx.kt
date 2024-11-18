@@ -1,8 +1,6 @@
 import com.formdev.flatlaf.FlatLightLaf
 import java.awt.*
-import java.awt.event.ActionEvent
-import java.awt.event.MouseAdapter
-import java.awt.event.MouseEvent
+import java.awt.event.*
 import java.io.*
 import java.util.*
 import javax.swing.*
