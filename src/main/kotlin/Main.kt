@@ -39,6 +39,7 @@ fun App(state: MutableState<WindowState>, curPath: String) {
         val file = File(txtFilePath)
         val ioStream = BufferedReader(FileReader(file))
         val firstStringInFile = ioStream.readLine()
+//        val firstStringInFile = ioStream.readText()
         val s = if (firstStringInFile=="") ioStream.readLine() else firstStringInFile //если первая строка пустая
         itemsMap2[s] = setOf(txtFilePath, imgFilePath)
     }
